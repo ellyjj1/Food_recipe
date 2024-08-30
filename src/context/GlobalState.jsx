@@ -13,7 +13,7 @@ function GlobalState({children}) {
 
     const navigate = useNavigate()
 
-        async function fetchRecipes(search = "pasta") { // "pasta" is a default search term
+    async function fetchRecipes(search = "pasta") { // "pasta" is a default search term
         try {
             setLoading(true);
             const response = await fetch(
@@ -43,13 +43,13 @@ function GlobalState({children}) {
             );
 
             const data = await response.json();
-            if (data?.data?.recipes){
+            if (data?.data?.recipes) {
                 setRecipeList(data.data.recipes);
                 setLoading(false);
                 setSearchParam("")
                 navigate("/")
             }
-        }catch (error) {
+        } catch (error) {
             console.log(error);
             setLoading(false);
             setSearchParam("");
@@ -58,10 +58,10 @@ function GlobalState({children}) {
 
     function handleAddFavorite(getCurrentItem) {
         let copyFavoritesList = [...favoritesList];
-        const index = copyFavoritesList.findIndex(item=> item.id === getCurrentItem.id)
-        if(index === -1) {
+        const index = copyFavoritesList.findIndex(item => item.id === getCurrentItem.id)
+        if (index === -1) {
             copyFavoritesList.push(getCurrentItem);
-        }else{
+        } else {
             copyFavoritesList.splice(index);
         }
 
@@ -69,20 +69,20 @@ function GlobalState({children}) {
     }
 
     return (
-    <GlobalContext.Provider
-        value={{
-            searchParam,
-            setSearchParam,
-            handleSubmit,
-            recipeList,
-            loading,
-            recipeDetailsData,
-            setRecipeDetailsData,
-            favoritesList,
-            handleAddFavorite,
-    }}>
-        {children}
-    </GlobalContext.Provider>
+        <GlobalContext.Provider
+            value={{
+                searchParam,
+                setSearchParam,
+                handleSubmit,
+                recipeList,
+                loading,
+                recipeDetailsData,
+                setRecipeDetailsData,
+                favoritesList,
+                handleAddFavorite,
+            }}>
+            {children}
+        </GlobalContext.Provider>
     )
 }
 
